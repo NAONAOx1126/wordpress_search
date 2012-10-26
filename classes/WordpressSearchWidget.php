@@ -36,8 +36,8 @@ class WordpressSearchWidget extends WP_Widget {
 	 */
 	function __construct() {
     	parent::__construct(
-			"wp_search_all", 
-    		__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode())
+			"wp_search_form", 
+    		__("Wordpress Search Form", WordpressSearchPlugin::getProjectCode())
     	);
     }
     
@@ -50,7 +50,18 @@ class WordpressSearchWidget extends WP_Widget {
         echo "<li id=\"wordpress_search\">";
         if ( $title )
         	echo "<h2 class=\"widgettitle\">".$title."</h2>";
-        echo '<p><form action=""<input type="text" name="keyword" value="" /><input type="submit" value="'.__("Search").'" /></p>';
+        echo '<script type="text/javascript">';
+        echo 'jQuery(function(){';
+       	echo 'jQuery("#search_date_start").datepicker("option", "dateFormat", "yy-mm-dd");';
+       	echo 'jQuery("#search_date_end").datepicker("option", "dateFormat", "yy-mm-dd");';
+        echo '})';
+        echo '</script>';
+        echo '<p><form action="'.$_SERVER["REQUEST_URI"].'" method="POST">';
+		echo '<input type="hidden" name="option_keyword" value="'.$_POST["option_keyword"].'" />';
+		echo '<div class="search-keyword"><input type="text" name="keyword" value="'.$_POST["keyword"].'" /></div>';
+		echo '<div class="search-publish">';
+		echo '<input type="text" id="search_date_start" name="start" value="'.$_POST["start"].'" />〜<input type="text" id="search_date_end" name="end" value="'.$_POST["end"].'" />';
+		echo '</div><div class="buttons"><input type="submit" name="search" value="'.__("Search").'" /></div></form></p>';
         echo "</li>";
     }
     
