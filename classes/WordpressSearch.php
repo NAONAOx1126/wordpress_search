@@ -17,7 +17,8 @@
  */
 
 require_once(dirname(__FILE__)."/WordpressSearchSetting.php");
-require_once(dirname(__FILE__)."/WordpressSearchSettingGeneral.php");
+require_once(dirname(__FILE__)."/WordpressSearchWidget.php");
+require_once(dirname(__FILE__)."/WordpressSearchResultWidget.php");
 
 /**
  * 複数DB間でWordpressの記事の検索を行うプラグインのメインクラス

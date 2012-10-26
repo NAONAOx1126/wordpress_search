@@ -32,12 +32,12 @@ class WordpressSearchSetting {
 	public static function init(){
 		global $menu;
 		add_menu_page(
-			__("Main Menu"), 
-			__("Main Menu"), 
+			__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode()), 
+			__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode()), 
 			"administrator", 
 			"wordpress_search_menu", 
 			array( "WordpressSearchSetting", 'execute' ), 
-			WORDPRESS_CONVERT_BASE_URL."/menu_icon.png", 
+			WordpressSearchPlugin::getBaseUrl()."menu_icon.png", 
 			99 
 		);
 	}
@@ -54,10 +54,37 @@ class WordpressSearchSetting {
 	 * @return void
 	 */
 	public static function displaySetting(){
+		if(isset($_POST['submit'])){
+			if(!empty($_POST["prefix"])){
+				update_option("wordpress_search_prefix", $_POST["prefix"]);
+			}else{
+				update_option("wordpress_search_prefix", array());
+			}
+			$caution = __("Saved Changes", WordpressSearchPlugin::getProjectCode());
+		}
+		$prefix = get_option("wordpress_search_prefix");
+		if(!is_array($prefix)){
+			$prefix = array();
+		}
+		
 		// 設定変更ページを登録する。
 		echo "<div class=\"wrap\">";
-		echo "<h2>".WORDPRESS_SEARCH_PLUGIN_NAME." ".__("Main Menu")."</h2>";
-		echo "</div>";
+		echo "<h2>".__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode())." ".__("General Setting", WordpressSearchPlugin::getProjectCode())."</h2>";
+		echo "<h3>".__("Wordpress DB Prefix", WordpressSearchPlugin::getProjectCode())."</h3>";
+		echo "<form method=\"post\" action=\"".$_SERVER["REQUEST_URI"]."\">";
+		echo "<table class=\"form-table\"><tbody>";
+		foreach($prefix as $pre){
+			if(!empty($pre)){
+				echo "<tr><td><input type=\"text\" name=\"prefix[]\" value=\"".$pre."\" size=\"54\" /></td></tr>";
+			}
+		}
+		echo "<tr><td><input type=\"text\" name=\"prefix[]\" value=\"\" size=\"54\" /></td></tr>";
+		echo "</tbody></table>";
+		if(!empty($caution)){
+			echo "<p class=\"caution\">".$caution."</p>";
+		}
+		echo "<p class=\"submit\"><input type=\"submit\" name=\"submit\" value=\"".__("Save Changes", WordpressSearchPlugin::getProjectCode())."\" /></p>";
+		echo "</form></div>";
 	}
 }
 ?>

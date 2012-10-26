@@ -17,40 +17,56 @@
  */
 
 /*
-Plugin Name: Wordpress Converter for HTML Plugin
-Description: This plugin is convert helper for HTML to Wordpress Template.
+Plugin Name: Wordpress Search Plugin
+Description: Search from multiple wordpress sites.
 Version: 0.0.1
 Author: Naohisa Minagawa
 Author URI: http://www.netlife-web.com/
 License: Apache License 2.0
+Text Domain: wordpress_search
 */
 
 // メモリ使用制限を調整
 ini_set('memory_limit', '128M');
 
-// このプラグインのルートディレクトリ
-define("WORDPRESS_SEARCH_BASE_DIR", WP_PLUGIN_DIR."/wordpress_search");
+class WordpressSearchPlugin{
+	public static function getBaseDir(){
+		return WP_PLUGIN_DIR."/".WordpressSearchPlugin::getProjectCode()."/";
+	}
 
-// このプラグインのルートURL
-define("WORDPRESS_SEARCH_BASE_URL", WP_PLUGIN_URL."/wordpress_search");
+	public static function getBaseUrl(){
+		return WP_PLUGIN_URL."/".WordpressSearchPlugin::getProjectCode()."/";
+	}
+	
+	public static function getProjectCode(){
+		return "wordpress_search";
+	}
+	
+	public static function startup(){
+		$mainClass = "WordpressSearch";
+		
+		require_once(dirname(__FILE__)."/classes/".$mainClass.".php");
+		
+		// 初期化処理用のアクションを登録する。
+		add_action( 'init', array( $mainClass, "init" ) );
+		
+		// 初期化処理用のアクションを登録する。
+		add_action( 'admin_init', array( $mainClass, "execute" ) );
 
-// メインクラス名
-define("WORDPRESS_SEARCH_PLUGIN_NAME", __("Wordpress Search Plugin"));
+		// ウィジェット登録用のアクションを登録する
+		add_action( 'widgets_init', array( $mainClass."Widget", 'register' ) );
+		add_action( 'widgets_init', array( $mainClass."ResultWidget", 'register' ) );
+		
+		// インストール時の処理を登録
+		register_activation_hook( __FILE__, array( $mainClass, "install" ) );
+		
+		// アンインストール時の処理を登録
+		register_deactivation_hook( __FILE__, array( $mainClass, "uninstall" ) );
+	}
+}
 
-// メインクラス名
-define("WORDPRESS_SEARCH_MAIN_CLASS", "WordpressSearch");
+load_plugin_textdomain(WordpressSearchPlugin::getProjectCode(), false, WordpressSearchPlugin::getProjectCode().'/languages');		
 
-require_once(dirname(__FILE__)."/classes/".WORDPRESS_CONVERT_MAIN_CLASS.".php");
-
-// 初期化処理用のアクションを登録する。
-add_action( 'init', array( WORDPRESS_CONVERT_MAIN_CLASS, "init" ) );
-
-// 初期化処理用のアクションを登録する。
-add_action( 'admin_init', array( WORDPRESS_CONVERT_MAIN_CLASS, "execute" ) );
-
-// インストール時の処理を登録
-register_activation_hook( __FILE__, array( WORDPRESS_CONVERT_MAIN_CLASS, "install" ) );
-
-// アンインストール時の処理を登録
-register_deactivation_hook( __FILE__, array( WORDPRESS_CONVERT_MAIN_CLASS, "uninstall" ) );
+// プラグイン処理を開始
+WordpressSearchPlugin::startup();
 ?>
