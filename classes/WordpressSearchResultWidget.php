@@ -67,7 +67,10 @@ class WordpressSearchResultWidget extends WP_Widget {
 	        		$keywords[] = $k;
         		}
         	}
-        	$option_keywords_temp = explode(" ", str_replace("　", "", $_POST["keyword"]));
+        	if(is_array($_POST["option_keyword"])){
+        		$_POST["option_keyword"] = implode(" ", $_POST["option_keyword"]);
+        	}
+        	$option_keywords_temp = explode(" ", str_replace("　", "", $_POST["option_keyword"]));
         	$option_keywords = array();
         	foreach($option_keywords_temp as $k){
         		if(!empty($k)){
