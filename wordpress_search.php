@@ -62,6 +62,36 @@ class WordpressSearchPlugin{
 		
 		// アンインストール時の処理を登録
 		register_deactivation_hook( __FILE__, array( $mainClass, "uninstall" ) );
+		
+    	// キーワードが配列で渡ってきた場合は、空白区切りでまとめる。
+    	if(is_array($_POST["keyword"])){
+    		$_POST["keyword"] = implode(" ", $_POST["keyword"]);
+    	}
+    	if(is_array($_POST["option_keyword"])){
+    		$_POST["option_keyword"] = implode(" ", $_POST["option_keyword"]);
+    	}
+    	
+		// 記事の登録日が分割されてきた場合は一つにまとめる。
+		if(!empty($_POST["start_y"]) && !empty($_POST["start_m"]) && !empty($_POST["start_d"])){
+			$publishDate = strtotime($_POST["start_y"]."-".$_POST["start_m"]."-".$_POST["start_d"]);
+			$_POST["start"] = date("Y-m-d", $publishDate);
+		}
+		if(!empty($_POST["start"])){
+			$publishDate = strtotime($_POST["start"]);
+			$_POST["start_y"] = date("Y", $publishDate);
+			$_POST["start_m"] = date("m", $publishDate);
+			$_POST["start_d"] = date("d", $publishDate);
+		}
+		if(!empty($_POST["end_y"]) && !empty($_POST["end_m"]) && !empty($_POST["end_d"])){
+			$publishDate = strtotime($_POST["end_y"]."-".$_POST["end_m"]."-".$_POST["end_d"]);
+			$_POST["end"] = date("Y-m-d", $publishDate);
+		}
+		if(!empty($_POST["end"])){
+			$publishDate = strtotime($_POST["end"]);
+			$_POST["end_y"] = date("Y", $publishDate);
+			$_POST["end_m"] = date("m", $publishDate);
+			$_POST["end_d"] = date("d", $publishDate);
+		}
 	}
 }
 

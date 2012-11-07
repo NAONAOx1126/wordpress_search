@@ -17,6 +17,7 @@
  */
 
 require_once(dirname(__FILE__)."/WordpressSearchSetting.php");
+require_once(dirname(__FILE__)."/WordpressSearchFormSetting.php");
 require_once(dirname(__FILE__)."/WordpressSearchWidget.php");
 require_once(dirname(__FILE__)."/WordpressSearchResultWidget.php");
 
@@ -35,10 +36,11 @@ class WordpressSearch {
 	public static function init(){
 		// 環境のバージョンチェック
 		if( version_compare( PHP_VERSION, '5.3.0', '<' ) )
-			trigger_error( __("PHP 5.3 or later is required for this plugin."), E_USER_ERROR );
+			trigger_error( __("PHP 5.3 or later is required for this plugin.", WordpressSearchPlugin::getProjectCode()), E_USER_ERROR );
 		
 		// 初期化処理
 		add_action( 'admin_menu', array( "WordpressSearchSetting", 'init' ) );
+		add_action( 'admin_menu', array( "WordpressSearchFormSetting", 'init' ) );
 	}
 	
 	/**

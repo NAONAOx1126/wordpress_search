@@ -32,8 +32,8 @@ class WordpressSearchSetting {
 	public static function init(){
 		global $menu;
 		add_menu_page(
-			__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode()), 
-			__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode()), 
+			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
+			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
 			"administrator", 
 			"wordpress_search_menu", 
 			array( "WordpressSearchSetting", 'execute' ), 
@@ -69,16 +69,16 @@ class WordpressSearchSetting {
 		
 		// 設定変更ページを登録する。
 		echo "<div class=\"wrap\">";
-		echo "<h2>".__("Wordpress Search Plugin", WordpressSearchPlugin::getProjectCode())." ".__("General Setting", WordpressSearchPlugin::getProjectCode())."</h2>";
+		echo "<h2>".__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Database Setting", WordpressSearchPlugin::getProjectCode())."</h2>";
 		echo "<h3>".__("Wordpress DB Prefix", WordpressSearchPlugin::getProjectCode())."</h3>";
 		echo "<form method=\"post\" action=\"".$_SERVER["REQUEST_URI"]."\">";
 		echo "<table class=\"form-table\"><tbody>";
-		foreach($prefix as $pre){
+		foreach($prefix as $index => $pre){
 			if(!empty($pre)){
-				echo "<tr><td><input type=\"text\" name=\"prefix[]\" value=\"".$pre."\" size=\"54\" /></td></tr>";
+				echo "<tr><td>".($index + 1)."</td><td><input type=\"text\" name=\"prefix[]\" value=\"".$pre."\" size=\"54\" /></td></tr>";
 			}
 		}
-		echo "<tr><td><input type=\"text\" name=\"prefix[]\" value=\"\" size=\"54\" /></td></tr>";
+		echo "<tr><td>".(count($prefix) + 1)."</td><td><input type=\"text\" name=\"prefix[]\" value=\"\" size=\"54\" /></td></tr>";
 		echo "</tbody></table>";
 		if(!empty($caution)){
 			echo "<p class=\"caution\">".$caution."</p>";

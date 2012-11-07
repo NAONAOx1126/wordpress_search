@@ -37,7 +37,7 @@ class WordpressSearchResultWidget extends WP_Widget {
 	function __construct() {
     	parent::__construct(
 			"wp_search_result", 
-    		__("Wordpress Search Result", WordpressSearchPlugin::getProjectCode()."_result")
+    		__("Wordpress Search Result", WordpressSearchPlugin::getProjectCode())
     	);
     }
     
@@ -48,13 +48,28 @@ class WordpressSearchResultWidget extends WP_Widget {
         global $wpdb;
         extract( $args );
         
+    	// キーワードを分割し、配列に設定
+    	$keywords_temp = explode(" ", str_replace("　", " ", $_POST["keyword"]));
+    	$option_keywords_temp = explode(" ", str_replace("　", " ", $_POST["option_keyword"]));
+    	$keywords = array("keyword" => array(), "option_keyword" => array());
+    	foreach($keywords_temp as $k){
+    		if(!empty($k)){
+        		$keywords["keyword"][] = $k;
+    		}
+    	}
+    	foreach($option_keywords_temp as $k){
+    		if(!empty($k)){
+        		$keywords["option_keyword"][] = $k;
+    		}
+    	}
+    	
         // タイトルの表示
         $title = apply_filters( 'widget_title', $instance['title'] );
         echo "<li id=\"wordpress_search\">";
         if ( $title )
         	echo "<h2 class=\"widgettitle\">".$title;
-        	if(!empty($_POST["option_keyword"])){
-        		echo "(".$_POST["option_keyword"].")";
+        	if(!empty($keywords["option_keyword"])){
+        		echo "(".implode(" ", $keywords["option_keyword"]).")";
         	}
         	echo "</h2>";
         	
@@ -62,28 +77,6 @@ class WordpressSearchResultWidget extends WP_Widget {
         
         // 検索処理の実行
         if(isset($_POST["search"])){
-        	// キーワードが配列で渡ってきた場合は、空白区切りでまとめる。
-        	if(is_array($_POST["keyword"])){
-        		$_POST["keyword"] = implode(" ", $_POST["keyword"]);
-        	}
-        	if(is_array($_POST["option_keyword"])){
-        		$_POST["option_keyword"] = implode(" ", $_POST["option_keyword"]);
-        	}
-        	
-        	// キーワードを分割し、配列に設定
-        	$keywords_temp = explode(" ", str_replace("　", "", $_POST["keyword"]));
-        	$option_keywords_temp = explode(" ", str_replace("　", "", $_POST["option_keyword"]));
-        	$keywords = array("keyword" => array(), "option_keyword" => array());
-        	foreach($keywords_temp as $k){
-        		if(!empty($k)){
-	        		$keywords[] = $k;
-        		}
-        	}
-        	foreach($option_keywords_temp as $k){
-        		if(!empty($k)){
-	        		$keywords[] = $k;
-        		}
-        	}
         	
         	// 取得先DBのリストを取得
         	$prefix = get_option("wordpress_search_prefix");
@@ -96,51 +89,52 @@ class WordpressSearchResultWidget extends WP_Widget {
         		$sql = "SELECT * FROM ".$p."posts WHERE post_status = 'publish'";
         		
         		// キーワードを検索条件に設定する。
-        		if(is_array($keywords) && !empty($keywords)){
-        			foreach($keywords as $keyword){
-	        			// 記事のタグを取得する。
-	        			$termIds = array();
-	        			$taxonomyIds = array();
-	        			$postIds = array();
-	        			$terms = $wpdb->get_results($wpdb->prepare("SELECT term_id FROM ".$p."terms WHERE name = %s", $keyword));
-	        			foreach($terms as $term){
-	        				$termIds[] = $term->term_id;
-	        			}
-	        			if(!empty($termIds)){
-		        			$taxonomys = $wpdb->get_results("SELECT term_taxonomy_id FROM ".$p."term_taxonomy WHERE taxonomy = 'post_tag' AND term_id IN (".implode(", ", $termIds).")");
-		        			foreach($taxonomys as $taxonomy){
-		        				$taxonomyIds[] = $taxonomy->term_taxonomy_id;
-		        			}
-		        			if(!empty($taxonomyIds)){
-			        			$posts = $wpdb->get_results("SELECT object_id FROM ".$p."term_relationships WHERE term_taxonomy_id IN (".implode(", ", $taxonomyIds).")");
-			        			foreach($posts as $post){
-			        				$postIds[] = $post->object_id;
+        		foreach($keywords as $keyword_type => $keyword_list){
+        			$keyword_target = $_POST[$keyword_type."_target"];
+	        		if(is_array($keyword_list) && !empty($keywords)){
+	        			foreach($keyword_list as $keyword){
+		        			$termIds = array();
+		        			$taxonomyIds = array();
+		        			$postIds = array();
+	        				if(empty($keyword_target) || $keyword_target == "tag"){
+			        			// 記事のタグを取得する。
+			        			$terms = $wpdb->get_results($wpdb->prepare("SELECT term_id FROM ".$p."terms WHERE name = %s", $keyword));
+			        			foreach($terms as $term){
+			        				$termIds[] = $term->term_id;
 			        			}
+			        			if(!empty($termIds)){
+				        			$taxonomys = $wpdb->get_results("SELECT term_taxonomy_id FROM ".$p."term_taxonomy WHERE taxonomy = 'post_tag' AND term_id IN (".implode(", ", $termIds).")");
+				        			foreach($taxonomys as $taxonomy){
+				        				$taxonomyIds[] = $taxonomy->term_taxonomy_id;
+				        			}
+				        			if(!empty($taxonomyIds)){
+					        			$posts = $wpdb->get_results("SELECT object_id FROM ".$p."term_relationships WHERE term_taxonomy_id IN (".implode(", ", $taxonomyIds).")");
+					        			foreach($posts as $post){
+					        				$postIds[] = $post->object_id;
+					        			}
+				        			}
+			        			}
+	        				}
+		        			
+		        			$sql .= " AND (";
+	        				if($keyword_target != "body" && $keyword_target != "tag"){
+			        			$sql .= $wpdb->prepare("post_title LIKE %s", "%".$keyword."%");
 		        			}
+	        				if(empty($keyword_target) || $keyword_target == "body"){
+		        				if($keyword_target != "body" && $keyword_target != "tag"){
+	        						$sql .= " OR ";
+	        					}
+			        			$sql .= $wpdb->prepare("post_content LIKE %s", "%".$keyword."%");
+		        			}
+		        			if(!empty($postIds)){
+	        					if($keyword_target != "tag"){
+	        						$sql .= " OR ";
+	        					}
+			        			$sql .= $wpdb->prepare("ID IN (".implode(", ", $postIds).")");
+		        			}
+		        			$sql .= ")";
 	        			}
-	        			
-	        			if(!empty($postIds)){
-		        			$sql .= $wpdb->prepare(" AND (post_title LIKE %s OR post_content LIKE %s OR ID IN (".implode(", ", $postIds)."))", "%".$keyword."%", "%".$keyword."%");
-	        			}else{
-		        			$sql .= $wpdb->prepare(" AND (post_title LIKE %s OR post_content LIKE %s)", "%".$keyword."%", "%".$keyword."%");
-	        			}
-        			}
-        		}
-        		
-        		// 記事の登録日が分割されてきた場合は一つにまとめる。
-        		if(!empty($_POST["start_y"]) && !empty($_POST["start_m"]) && !empty($_POST["start_d"])){
-        			$publishDate = strtotime($_POST["start_y"]."-".$_POST["start_m"]."-".$_POST["start_d"]);
-        			$_POST["start"] = date("Y-m-d", $publishDate);
-        			$_POST["start_y"] = date("Y", $publishDate);
-        			$_POST["start_m"] = date("m", $publishDate);
-        			$_POST["start_d"] = date("d", $publishDate);
-        		}
-        		if(!empty($_POST["end_y"]) && !empty($_POST["end_m"]) && !empty($_POST["end_d"])){
-        			$publishDate = strtotime($_POST["end_y"]."-".$_POST["end_m"]."-".$_POST["end_d"]);
-        			$_POST["end"] = date("Y-m-d", $publishDate);
-        			$_POST["end_y"] = date("Y", $publishDate);
-        			$_POST["end_m"] = date("m", $publishDate);
-        			$_POST["end_d"] = date("d", $publishDate);
+	        		}
         		}
         		
         		// 記事の登録日を検索条件とする。
