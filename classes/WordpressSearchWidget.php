@@ -46,6 +46,12 @@ class WordpressSearchWidget extends WP_Widget {
      */
     function widget($args, $instance) {
         extract( $args );
+
+        foreach($_POST as $key => $value){
+        	$_GET[$key] = $value;
+        }
+        $_POST = $_GET;
+        
         $title = apply_filters( 'widget_title', $instance['title'] );
         $type = apply_filters( 'widget_type', $instance['type'] );
         if($type != ""){
