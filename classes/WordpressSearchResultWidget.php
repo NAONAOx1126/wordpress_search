@@ -48,6 +48,11 @@ class WordpressSearchResultWidget extends WP_Widget {
         global $wpdb;
         extract( $args );
         
+        foreach($_POST as $key => $value){
+        	$_GET[$key] = $value;
+        }
+        $_POST = $_GET;
+        
     	// キーワードを分割し、配列に設定
     	$keywords_temp = explode(" ", str_replace("　", " ", $_POST["keyword"]));
     	$option_keywords_temp = explode(" ", str_replace("　", " ", $_POST["option_keyword"]));
