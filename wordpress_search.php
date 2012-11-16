@@ -29,6 +29,8 @@ Text Domain: wordpress_search
 // メモリ使用制限を調整
 ini_set('memory_limit', '128M');
 
+load_plugin_textdomain(WordpressSearchPlugin::getProjectCode(), false, WordpressSearchPlugin::getProjectCode().'/languages');		
+
 class WordpressSearchPlugin{
 	public static function getBaseDir(){
 		return WP_PLUGIN_DIR."/".WordpressSearchPlugin::getProjectCode()."/";

@@ -30,15 +30,25 @@ class WordpressSearchSetting {
 	 * @return void
 	 */
 	public static function init(){
-		global $menu;
+		global $menu, $submenu;
 		add_menu_page(
-			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
-			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
+			__("Wordpress Search", WordpressSearchPlugin::getProjectCode()), 
+			__("Wordpress Search", WordpressSearchPlugin::getProjectCode()), 
 			"administrator", 
 			"wordpress_search_menu", 
 			array( "WordpressSearchSetting", 'execute' ), 
 			WordpressSearchPlugin::getBaseUrl()."menu_icon.png", 
 			99 
+		);
+		
+		$submenu["wordpress_search_menu"] = array();
+		add_submenu_page(
+			"wordpress_search_menu", 
+			__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
+			__("Database Setting", WordpressSearchPlugin::getProjectCode()), 
+			"administrator", 
+			"wordpress_search_database_menu", 
+			array( "WordpressSearchSetting", 'execute' ) 
 		);
 	}
 	

@@ -1,0 +1,146 @@
+# Copyright (C) 2012 Wordpress Search Plugin
+# This file is distributed under the same license as the Wordpress Search Plugin package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordpressマルチDB検索\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress_search\n"
+"POT-Creation-Date: 2012-11-16 07:10:54+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-11-16 16:17+0900\n"
+"Last-Translator: \n"
+"Language-Team: ネットライフ <info@netlife-web.com>\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: Japanese\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: classes/WordpressSearch.php:39
+msgid "PHP 5.3 or later is required for this plugin."
+msgstr "このプラグインはPHP5.3以上で動作します。"
+
+#: classes/WordpressSearchFormSetting.php:36
+#: classes/WordpressSearchFormSetting.php:37
+#: classes/WordpressSearchFormSetting.php:78
+#: classes/WordpressSearchSetting.php:35 classes/WordpressSearchSetting.php:36
+#: classes/WordpressSearchSetting.php:72
+msgid "Wordpress Search"
+msgstr "WordpressマルチDB検索"
+
+#: classes/WordpressSearchFormSetting.php:36
+#: classes/WordpressSearchFormSetting.php:37
+#: classes/WordpressSearchFormSetting.php:78
+msgid "Form Setting"
+msgstr "フォーム設定"
+
+#: classes/WordpressSearchFormSetting.php:69
+#: classes/WordpressSearchSetting.php:63
+msgid "Saved Changes"
+msgstr "保存しました。"
+
+#: classes/WordpressSearchFormSetting.php:81
+#: classes/WordpressSearchFormSetting.php:100
+msgid "Form"
+msgstr "フォーム"
+
+#: classes/WordpressSearchFormSetting.php:84
+#: classes/WordpressSearchFormSetting.php:103
+msgid "Form Code"
+msgstr "フォームコード"
+
+#: classes/WordpressSearchFormSetting.php:86
+#: classes/WordpressSearchFormSetting.php:105
+msgid "No Select"
+msgstr "選択なし"
+
+#: classes/WordpressSearchFormSetting.php:88
+#: classes/WordpressSearchFormSetting.php:107
+msgid "Use Keyword"
+msgstr "キーワードを利用する"
+
+#: classes/WordpressSearchFormSetting.php:89
+#: classes/WordpressSearchFormSetting.php:91
+#: classes/WordpressSearchFormSetting.php:93
+#: classes/WordpressSearchFormSetting.php:95
+#: classes/WordpressSearchFormSetting.php:108
+#: classes/WordpressSearchFormSetting.php:110
+#: classes/WordpressSearchFormSetting.php:112
+#: classes/WordpressSearchFormSetting.php:114
+msgid "Title"
+msgstr "タイトル"
+
+#: classes/WordpressSearchFormSetting.php:92
+#: classes/WordpressSearchFormSetting.php:94
+#: classes/WordpressSearchFormSetting.php:96
+#: classes/WordpressSearchFormSetting.php:111
+#: classes/WordpressSearchFormSetting.php:113
+#: classes/WordpressSearchFormSetting.php:115
+msgid "Selection"
+msgstr "選択"
+
+#: classes/WordpressSearchFormSetting.php:120
+#: classes/WordpressSearchSetting.php:86
+msgid "Save Changes"
+msgstr "保存します。"
+
+#: classes/WordpressSearchResultWidget.php:40
+msgid "Wordpress Search Result"
+msgstr "WordpressマルチDB検索結果"
+
+#: classes/WordpressSearchResultWidget.php:189
+#: classes/WordpressSearchWidget.php:131
+msgid "Search Title"
+msgstr "検索タイトル"
+
+#: classes/WordpressSearchSetting.php:35 classes/WordpressSearchSetting.php:36
+#: classes/WordpressSearchSetting.php:72
+msgid "Database Setting"
+msgstr "データベース設定"
+
+#: classes/WordpressSearchSetting.php:73
+msgid "Wordpress DB Prefix"
+msgstr "Wordpressデータベースプレフィクス"
+
+#: classes/WordpressSearchWidget.php:40
+msgid "Wordpress Search Form"
+msgstr "Wordpressサーチフォーム"
+
+#: classes/WordpressSearchWidget.php:97
+msgid "Publish Date"
+msgstr "公開日時"
+
+#: classes/WordpressSearchWidget.php:107
+msgid "Search"
+msgstr "検索"
+
+#: classes/WordpressSearchWidget.php:135
+msgid "Search Type"
+msgstr "検索種別"
+
+#: tools/trunk/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "ようこそ%sさん!"
+
+#: tools/trunk/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "この文字列は優先度が高くありません"
+
+#: tools/trunk/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "さようなら\n"
+
+#. Plugin Name of the plugin/theme
+msgid "Wordpress Search Plugin"
+msgstr "WordpressマルチDB検索プラグイン"
+
+#. Description of the plugin/theme
+msgid "Search from multiple wordpress sites."
+msgstr "複数のWordpressサイトに対して検索を実行します。"
+
+#. Author of the plugin/theme
+msgid "Naohisa Minagawa"
+msgstr "皆川　直久"
+
+#. Author URI of the plugin/theme
+msgid "http://www.netlife-web.com/"
+msgstr "http://www.netlife-web.com/"

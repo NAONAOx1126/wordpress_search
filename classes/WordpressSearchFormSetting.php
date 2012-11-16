@@ -33,8 +33,8 @@ class WordpressSearchFormSetting {
 		global $menu;
 		add_submenu_page(
 			"wordpress_search_menu", 
-			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Form Setting", WordpressSearchPlugin::getProjectCode()), 
-			__("Wordpress Search", WordpressSearchPlugin::getProjectCode())." ".__("Form Setting", WordpressSearchPlugin::getProjectCode()), 
+			__("Form Setting", WordpressSearchPlugin::getProjectCode()), 
+			__("Form Setting", WordpressSearchPlugin::getProjectCode()), 
 			"administrator", 
 			"wordpress_search_form_menu", 
 			array( "WordpressSearchFormSetting", 'execute' ) 

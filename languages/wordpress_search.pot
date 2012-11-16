@@ -1,0 +1,143 @@
+# Copyright (C) 2012 Wordpress Search Plugin
+# This file is distributed under the same license as the Wordpress Search Plugin package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Wordpress Search Plugin 0.0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress_search\n"
+"POT-Creation-Date: 2012-11-16 07:10:54+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: classes/WordpressSearch.php:39
+msgid "PHP 5.3 or later is required for this plugin."
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:36
+#: classes/WordpressSearchFormSetting.php:37
+#: classes/WordpressSearchFormSetting.php:78
+#: classes/WordpressSearchSetting.php:35 classes/WordpressSearchSetting.php:36
+#: classes/WordpressSearchSetting.php:72
+msgid "Wordpress Search"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:36
+#: classes/WordpressSearchFormSetting.php:37
+#: classes/WordpressSearchFormSetting.php:78
+msgid "Form Setting"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:69
+#: classes/WordpressSearchSetting.php:63
+msgid "Saved Changes"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:81
+#: classes/WordpressSearchFormSetting.php:100
+msgid "Form"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:84
+#: classes/WordpressSearchFormSetting.php:103
+msgid "Form Code"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:86
+#: classes/WordpressSearchFormSetting.php:105
+msgid "No Select"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:88
+#: classes/WordpressSearchFormSetting.php:107
+msgid "Use Keyword"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:89
+#: classes/WordpressSearchFormSetting.php:91
+#: classes/WordpressSearchFormSetting.php:93
+#: classes/WordpressSearchFormSetting.php:95
+#: classes/WordpressSearchFormSetting.php:108
+#: classes/WordpressSearchFormSetting.php:110
+#: classes/WordpressSearchFormSetting.php:112
+#: classes/WordpressSearchFormSetting.php:114
+msgid "Title"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:92
+#: classes/WordpressSearchFormSetting.php:94
+#: classes/WordpressSearchFormSetting.php:96
+#: classes/WordpressSearchFormSetting.php:111
+#: classes/WordpressSearchFormSetting.php:113
+#: classes/WordpressSearchFormSetting.php:115
+msgid "Selection"
+msgstr ""
+
+#: classes/WordpressSearchFormSetting.php:120
+#: classes/WordpressSearchSetting.php:86
+msgid "Save Changes"
+msgstr ""
+
+#: classes/WordpressSearchResultWidget.php:40
+msgid "Wordpress Search Result"
+msgstr ""
+
+#: classes/WordpressSearchResultWidget.php:189
+#: classes/WordpressSearchWidget.php:131
+msgid "Search Title"
+msgstr ""
+
+#: classes/WordpressSearchSetting.php:35 classes/WordpressSearchSetting.php:36
+#: classes/WordpressSearchSetting.php:72
+msgid "Database Setting"
+msgstr ""
+
+#: classes/WordpressSearchSetting.php:73
+msgid "Wordpress DB Prefix"
+msgstr ""
+
+#: classes/WordpressSearchWidget.php:40
+msgid "Wordpress Search Form"
+msgstr ""
+
+#: classes/WordpressSearchWidget.php:97
+msgid "Publish Date"
+msgstr ""
+
+#: classes/WordpressSearchWidget.php:107
+msgid "Search"
+msgstr ""
+
+#: classes/WordpressSearchWidget.php:135
+msgid "Search Type"
+msgstr ""
+
+#: tools/trunk/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: tools/trunk/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: tools/trunk/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Wordpress Search Plugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Search from multiple wordpress sites."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Naohisa Minagawa"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.netlife-web.com/"
+msgstr ""
